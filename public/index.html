@@ -56,9 +56,11 @@
         <!-- Hero Section -->
         <section id="hero" class="hero">
             <div class="hero-video-wrapper">
-                <video playsinline autoplay muted loop poster="/assets/hero-poster.jpg" class="hero-video">
+                <!-- IMPORTANT: Changed the poster image to a high-impact car photo -->
+                <video playsinline autoplay muted loop
+                    poster="https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=2564&auto=format&fit=crop"
+                    class="hero-video">
                     <source src="/assets/hero-video.mp4" type="video/mp4">
-                    <!-- Create a /public/assets folder and add hero-video.mp4 and hero-poster.jpg -->
                 </video>
             </div>
             <div class="hero-overlay"></div>
@@ -100,7 +102,6 @@
             <div class="container about-container">
                 <div class="about-image" data-aos="fade-right">
                     <img src="/assets/about-us.jpg" alt="Dealership Interior">
-                    <!-- Add an about-us.jpg to your /public/assets folder -->
                 </div>
                 <div class="about-content" data-aos="fade-left">
                     <h2 class="section-title">About Prestige Motors</h2>
