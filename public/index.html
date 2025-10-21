@@ -4,57 +4,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prestige Motors - Luxury Car Dealership</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Prestige Motors - The Art of Automotive Excellence</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
     <header class="header">
         <nav class="container">
-            <a href="#" class="logo">PRESTIGE</a>
-            <ul class="nav-links">
-                <li><a href="#hero">Home</a></li>
-                <li><a href="#cars">Inventory</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+            <a href="#hero" class="logo">PRESTIGE</a>
+            <div class="nav-links">
+                <a href="#cars">Inventory</a>
+                <a href="#about">About Us</a>
+                <a href="#services">Services</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <button class="hamburger" id="hamburger-button">
+                <i class="fas fa-bars"></i>
+            </button>
         </nav>
     </header>
 
+    <div class="mobile-nav" id="mobile-nav">
+        <button class="close-btn" id="close-button">&times;</button>
+        <a href="#cars" class="mobile-link">Inventory</a>
+        <a href="#about" class="mobile-link">About Us</a>
+        <a href="#services" class="mobile-link">Services</a>
+        <a href="#contact" class="mobile-link">Contact</a>
+    </div>
+
     <main>
         <section id="hero" class="hero">
-            <div class="hero-content">
-                <h1>Find Your Dream Ride</h1>
-                <p>The Ultimate Destination for Luxury & Performance</p>
-                <a href="#cars" class="btn">Explore Cars</a>
+            <div class="hero-video-wrapper">
+                <video playsinline autoplay muted loop
+                    poster="https://images.unsplash.com/photo-1517524206127-48bbd363f357?q=80&w=2070&auto=format&fit=crop"
+                    class="hero-video">
+                    <!-- Find free videos on sites like Pexels.com or Coverr.co -->
+                    <source src="https://videos.pexels.com/video-files/3133616/3133616-hd_1920_1080_25fps.mp4"
+                        type="video/mp4">
+                </video>
+            </div>
+            <div class="hero-overlay"></div>
+            <div class="hero-content animate-on-scroll">
+                <h1 class="hero-title">The Art of Automotive Excellence</h1>
+                <p class="hero-subtitle">Discover our curated collection of the world's finest automobiles.</p>
+                <a href="#cars" class="btn btn-primary">View Collection</a>
             </div>
         </section>
 
         <section id="cars" class="cars-section">
             <div class="container">
-                <h2 class="section-title">Our Collection</h2>
+                <h2 class="section-title animate-on-scroll">Our Curated Collection</h2>
                 <div id="car-gallery" class="car-gallery">
-                    <!-- Car cards will be dynamically inserted here by JavaScript -->
-                    <p class="loading-text">Loading inventory...</p>
+                    <p class="loading-text">Loading our finest vehicles...</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about-section">
+            <div class="container about-container">
+                <div class="about-image animate-on-scroll">
+                    <img src="https://images.unsplash.com/photo-1533106418989-88981c693178?q=80&w=1887&auto=format&fit=crop"
+                        alt="Luxury car dealership interior">
+                </div>
+                <div class="about-content animate-on-scroll">
+                    <h2 class="section-title">About Prestige Motors</h2>
+                    <p>Founded on a passion for precision engineering and timeless design, Prestige Motors is more than
+                        a dealership—it's a destination for enthusiasts. We specialize in sourcing the most sought-after
+                        luxury and performance vehicles from around the globe.</p>
+                    <p>Our mission is to provide a seamless, transparent, and personalized car-buying experience,
+                        ensuring that every client finds the perfect vehicle to match their lifestyle.</p>
+                    <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="services-section">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">Why Choose Us?</h2>
+                <div class="services-grid">
+                    <div class="service-card animate-on-scroll">
+                        <i class="fas fa-globe-americas service-icon"></i>
+                        <h3>Global Sourcing</h3>
+                        <p>We find the exact car you're looking for, no matter where it is in the world.</p>
+                    </div>
+                    <div class="service-card animate-on-scroll">
+                        <i class="fas fa-certificate service-icon"></i>
+                        <h3>Certified Quality</h3>
+                        <p>Every vehicle undergoes a rigorous multi-point inspection to ensure pristine condition.</p>
+                    </div>
+                    <div class="service-card animate-on-scroll">
+                        <i class="fas fa-handshake service-icon"></i>
+                        <h3>Personalized Service</h3>
+                        <p>We offer a bespoke, client-focused experience from your first inquiry to final delivery.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
         <section id="contact" class="contact-section">
-            <div class="container">
-                <h2 class="section-title">Get In Touch</h2>
-                <p>Have questions? Reach out to us anytime.</p>
-                <p class="contact-info">Email: contact@prestigemotors.com | Phone: +1 (234) 567-890</p>
+            <div class="container animate-on-scroll">
+                <h2 class="section-title">Begin Your Journey</h2>
+                <p>Your dream car awaits. Contact us today to schedule a private viewing or consultation.</p>
+                <div class="contact-info">
+                    <span><i class="fas fa-envelope"></i> contact@prestigemotors.com</span>
+                    <span><i class="fas fa-phone"></i> +1 (234) 567-890</span>
+                </div>
             </div>
         </section>
     </main>
 
     <footer class="footer">
-        <p>&copy; 2024 Prestige Motors. All Rights Reserved.</p>
+        <div class="container footer-content">
+            <p>&copy; 2024 Prestige Motors. All Rights Reserved.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
     </footer>
+
+    <a id="whatsapp-float" href="#" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
     <script src="script.js"></script>
 </body>

@@ -1,4 +1,16 @@
-/* --- Basic Reset & Global Styles --- */
+/* --- GLOBAL STYLES & VARIABLES --- */
+:root {
+    --color-background: #0D0D0D;
+    --color-surface: #1A1A1A;
+    --color-primary: #D4AF37;
+    /* Gold */
+    --color-primary-dark: #c09d32;
+    --color-text: #F0F0F0;
+    --color-text-muted: #888;
+    --font-family: 'Lexend', sans-serif;
+    --transition-speed: 0.3s;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -10,56 +22,102 @@ html {
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #121212;
-    color: #e5e5e5;
-    line-height: 1.6;
+    font-family: var(--font-family);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    line-height: 1.7;
+    overflow-x: hidden;
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1280px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 2rem;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+section {
+    padding: 6rem 0;
 }
 
 .section-title {
-    font-size: 2.5rem;
-    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3rem);
+    /* Responsive font size */
+    font-weight: 600;
     text-align: center;
     margin-bottom: 3rem;
+    color: var(--color-text);
 }
 
 .btn {
     display: inline-block;
-    background: #D4AF37;
-    /* Gold */
-    color: #121212;
-    padding: 12px 28px;
+    padding: 0.8rem 2rem;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 500;
     border-radius: 50px;
-    transition: transform 0.3s ease, background-color 0.3s ease;
+    transition: all var(--transition-speed) ease;
+    border: 2px solid transparent;
 }
 
-.btn:hover {
-    background-color: #c09d32;
+.btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-background);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-primary-dark);
     transform: translateY(-3px);
 }
 
-/* --- Header --- */
+.btn-secondary {
+    background-color: transparent;
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-primary);
+    color: var(--color-background);
+}
+
+/* --- CUSTOM SCROLLBAR --- */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-surface);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* --- HEADER & NAVIGATION --- */
 .header {
     position: fixed;
     width: 100%;
     top: 0;
     left: 0;
-    z-index: 100;
-    padding: 1rem 0;
-    transition: background-color 0.3s ease;
+    z-index: 1000;
+    padding: 1.5rem 0;
+    transition: background-color var(--transition-speed) ease, padding var(--transition-speed) ease;
 }
 
 .header.scrolled {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(13, 13, 13, 0.85);
     backdrop-filter: blur(10px);
+    padding: 1rem 0;
 }
 
 .header .container {
@@ -73,135 +131,389 @@ body {
     font-weight: 700;
     color: #fff;
     text-decoration: none;
+    letter-spacing: 1px;
 }
 
 .nav-links {
-    list-style: none;
     display: flex;
-    gap: 2rem;
+    gap: 2.5rem;
 }
 
 .nav-links a {
-    color: #e5e5e5;
+    color: var(--color-text);
     text-decoration: none;
     font-weight: 400;
-    transition: color 0.3s;
+    position: relative;
+    padding-bottom: 0.5rem;
 }
 
-.nav-links a:hover {
-    color: #D4AF37;
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-primary);
+    transition: width var(--transition-speed) ease;
 }
 
-/* --- Hero Section --- */
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.hamburger,
+.close-btn,
+.mobile-nav {
+    display: none;
+}
+
+/* --- HERO SECTION --- */
 .hero {
     height: 100vh;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     color: #fff;
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1542281286-9e0a16bb7366?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+    overflow: hidden;
+    padding: 0;
 }
 
-.hero-content h1 {
-    font-size: 4rem;
+.hero-video-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.hero-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 2;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+}
+
+.hero-title {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
     font-weight: 700;
     margin-bottom: 1rem;
+    line-height: 1.2;
 }
 
-.hero-content p {
-    font-size: 1.25rem;
-    margin-bottom: 2rem;
+.hero-subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    font-weight: 300;
 }
 
-/* --- Cars Section --- */
+/* --- CARS SECTION --- */
 .cars-section {
-    padding: 6rem 0;
+    background-color: var(--color-background);
 }
 
 .car-gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2.5rem;
 }
 
-.loading-text {
+.loading-text,
+.error-text {
     text-align: center;
     font-size: 1.2rem;
     grid-column: 1 / -1;
+    color: var(--color-text-muted);
 }
 
 .car-card {
-    background-color: #1a1a1a;
+    background-color: var(--color-surface);
     border-radius: 10px;
     overflow: hidden;
     border: 1px solid #2a2a2a;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    display: flex;
+    flex-direction: column;
 }
 
 .car-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 20px 30px rgba(212, 175, 55, 0.1);
+    box-shadow: 0 25px 40px rgba(0, 0, 0, 0.5);
 }
 
 .car-card img {
     width: 100%;
-    height: 220px;
+    height: 240px;
     object-fit: cover;
 }
 
 .car-info {
     padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .car-info h3 {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
-    color: #fff;
+    color: var(--color-text);
 }
 
 .car-info .year {
-    color: #aaa;
+    color: var(--color-text-muted);
     margin-bottom: 1rem;
 }
 
 .car-info .price {
     font-size: 2rem;
     font-weight: 700;
-    color: #D4AF37;
+    color: var(--color-primary);
+    margin-bottom: 1.5rem;
+    margin-top: auto;
+}
+
+.car-info .btn {
+    width: 100%;
+    text-align: center;
+}
+
+/* --- ABOUT SECTION --- */
+.about-section {
+    background-color: var(--color-surface);
+}
+
+.about-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 4rem;
+}
+
+.about-image img {
+    border-radius: 10px;
+}
+
+.about-content .section-title {
+    text-align: left;
+}
+
+.about-content p {
+    color: var(--color-text-muted);
     margin-bottom: 1.5rem;
 }
 
-/* --- Contact & Footer --- */
-.contact-section {
-    padding: 4rem 0;
+/* --- SERVICES SECTION --- */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.service-card {
+    background-color: var(--color-surface);
+    padding: 2.5rem;
+    border-radius: 10px;
     text-align: center;
-    background-color: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    transition: background-color var(--transition-speed) ease;
+}
+
+.service-card:hover {
+    background-color: #222;
+}
+
+.service-icon {
+    font-size: 3rem;
+    color: var(--color-primary);
+    margin-bottom: 1.5rem;
+}
+
+.service-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.service-card p {
+    color: var(--color-text-muted);
+}
+
+/* --- CONTACT & FOOTER --- */
+.contact-section {
+    background-color: var(--color-surface);
+    text-align: center;
+}
+
+.contact-section p {
+    max-width: 600px;
+    margin: 0 auto 2rem;
 }
 
 .contact-info {
-    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.contact-info span {
     font-size: 1.1rem;
-    color: #aaa;
+}
+
+.contact-info i {
+    color: var(--color-primary);
+    margin-right: 0.5rem;
 }
 
 .footer {
-    padding: 1.5rem 0;
-    text-align: center;
     background-color: #000;
-    color: #777;
+    padding: 2rem 0;
 }
 
-/* --- Responsive --- */
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.social-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.social-links a {
+    color: var(--color-text-muted);
+    font-size: 1.2rem;
+    transition: color var(--transition-speed) ease;
+}
+
+.social-links a:hover {
+    color: var(--color-primary);
+}
+
+/* --- WHATSAPP FLOAT BUTTON --- */
+.whatsapp-float {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 60px;
+    height: 60px;
+    background-color: #25D366;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    z-index: 100;
+    text-decoration: none;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: transform var(--transition-speed) ease;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+}
+
+/* --- SCROLL ANIMATIONS --- */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- RESPONSIVE STYLES --- */
 @media (max-width: 768px) {
-    .hero-content h1 {
-        font-size: 2.5rem;
+    section {
+        padding: 4rem 0;
     }
 
     .nav-links {
         display: none;
     }
 
-    /* Simple hiding for mobile, can be replaced with a burger menu */
+    .hamburger {
+        display: block;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.8rem;
+        cursor: pointer;
+    }
+
+    .mobile-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: var(--color-background);
+        z-index: 2000;
+        transform: translateX(100%);
+        transition: transform var(--transition-speed) ease-in-out;
+    }
+
+    .mobile-nav.open {
+        transform: translateX(0);
+    }
+
+    .mobile-link {
+        font-size: 2rem;
+        color: var(--color-text);
+        text-decoration: none;
+    }
+
+    .close-btn {
+        display: block;
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 2.5rem;
+        cursor: pointer;
+    }
+
+    .about-container {
+        grid-template-columns: 1fr;
+    }
+
+    .about-content .section-title {
+        text-align: center;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 1rem;
+    }
 }
