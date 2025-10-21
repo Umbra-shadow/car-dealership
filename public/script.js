@@ -1,15 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- CONFIGURATION ---
     const WHATSAPP_NUMBER = "1234567890"; // Replace with your real WhatsApp number
-    const DESKTOP_BREAKPOINT = 768; // The pixel width to switch between mobile and desktop views
-
+    
     // --- ELEMENT SELECTORS ---
     const loader = document.getElementById('loader');
     const header = document.getElementById('header');
     const hamburgerButton = document.getElementById('hamburger-button');
     const closeButton = document.getElementById('close-button');
     const mobileNav = document.getElementById('mobile-nav');
-    const carGalleryContainer = document.getElementById('car-gallery-container');
     const carGallery = document.getElementById('car-gallery');
     const featuredCarsWrapper = document.getElementById('featured-cars-wrapper');
     const whatsappFloat = document.getElementById('whatsapp-float');
@@ -18,18 +16,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('search-input');
     const searchToggleButton = document.getElementById('search-toggle-btn');
     
-    // --- STATE ---
     let allCars = [];
-    let inventorySwiper = null;
 
-    // --- INITIALIZATION ---
     function init() {
         setupEventListeners();
         initAOS();
         fetchAndDisplayCars();
         setupFloatingWhatsApp();
         hideLoader();
-        handleResize(); // Initial check
     }
 
     function hideLoader() {
@@ -45,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function setupEventListeners() {
         window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 50));
-        window.addEventListener('resize', handleResize);
 
         const toggleNav = (shouldOpen) => {
             mobileNav.classList.toggle('open', shouldOpen);
@@ -57,7 +50,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         searchToggleButton.addEventListener('click', () => {
             header.classList.toggle('search-active');
-            if (header.classList.contains('search-active')) searchInput.focus();
+            if (header.classList.contains('search-active')) {
+                searchInput.focus();
+            } else {
+                searchInput.blur();
+            }
         });
 
         searchInput.addEventListener('input', (e) => {
@@ -75,8 +72,13 @@ document.addEventListener('DOMContentLoaded', () => {
         
         carGallery.addEventListener('click', (e) => {
             const card = e.target.closest('.car-card');
-            if (e.target.closest('a.btn-inquire')) return;
-            if (card && card.dataset.id) openModal(card.dataset.id);
+            // Do not open modal if the user clicked the WhatsApp button itself
+            if (e.target.closest('.btn-inquire, .btn-primary')) {
+                return;
+            }
+            if (card && card.dataset.id) {
+                openModal(card.dataset.id);
+            }
         });
     }
 
@@ -88,29 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const defaultMessage = "Hello! I would like to inquire about your cars.";
         whatsappFloat.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(defaultMessage)}`;
-    }
-
-    // ### RESPONSIVE LOGIC FOR INVENTORY ###
-    function handleResize() {
-        const isDesktop = window.innerWidth >= DESKTOP_BREAKPOINT;
-        if (isDesktop) {
-            if (inventorySwiper) {
-                inventorySwiper.destroy(true, true);
-                inventorySwiper = null;
-            }
-            carGalleryContainer.classList.add('is-grid');
-            carGalleryContainer.classList.remove('is-swiper');
-            // Re-wrap cards for grid if they were swiper-slides
-            carGallery.querySelectorAll('.car-card').forEach(card => card.classList.remove('swiper-slide'));
-            carGallery.classList.remove('swiper-wrapper');
-
-        } else {
-            carGalleryContainer.classList.remove('is-grid');
-            carGalleryContainer.classList.add('is-swiper');
-            if (!inventorySwiper) {
-                populateCarGallery(allCars); // Repopulate to ensure correct structure
-            }
-        }
     }
 
     async function fetchAndDisplayCars() {
@@ -128,9 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function populateCarGallery(cars, searchTerm = '') {
-        const isDesktop = window.innerWidth >= DESKTOP_BREAKPOINT;
         carGallery.innerHTML = '';
-
         if (cars.length === 0) {
             const message = searchTerm ? `No vehicles found matching "${searchTerm}"` : 'No vehicles currently available.';
             carGallery.innerHTML = `<p class="no-results-text">${message}</p>`;
@@ -140,42 +117,36 @@ document.addEventListener('DOMContentLoaded', () => {
         cars.forEach(car => {
             const card = document.createElement('div');
             card.className = 'car-card';
-            if (!isDesktop) card.classList.add('swiper-slide'); // Add swiper class only on mobile
             card.setAttribute('data-aos', 'fade-up');
             card.dataset.id = car.id;
+            
+            // ### ADAPTIVE BUTTON LOGIC ###
+            const buttonsHTML = `
+                <div class="car-card-buttons">
+                    <button class="btn btn-outline btn-details">Details</button>
+                    <a href="${generateWhatsAppLink(car)}" class="btn btn-primary btn-inquire" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+                </div>
+            `;
+            const mobileButtonHTML = `
+                 <div class="car-card-buttons">
+                    <a href="${generateWhatsAppLink(car)}" class="btn btn-primary btn-inquire" target="_blank" rel="noopener noreferrer">Inquire</a>
+                </div>
+            `;
+
+            // Mobile List View structure
             card.innerHTML = `
                 <img src="${car.image_url}" alt="${car.name} ${car.model}" class="car-card-image">
                 <div class="car-card-status ${car.status.toLowerCase()}">${car.status}</div>
                 <div class="car-info">
-                    <h3>${car.name} ${car.model}</h3>
-                    <p class="year">${car.year}</p>
-                    <p class="price">$${parseFloat(car.price).toLocaleString()}</p>
-                    <div class="car-card-buttons">
-                        <!-- ### ADAPTIVE BUTTONS ### -->
-                        <button class="btn btn-secondary btn-details">Details</button>
-                        <a href="${generateWhatsAppLink(car, 'inquire')}" class="btn btn-primary btn-inquire" target="_blank" rel="noopener noreferrer">Inquire</a>
+                    <div>
+                        <h3>${car.name} ${car.model}</h3>
+                        <p class="year">${car.year}</p>
+                        <p class="price">$${parseFloat(car.price).toLocaleString()}</p>
                     </div>
+                    ${window.innerWidth >= 768 ? buttonsHTML : mobileButtonHTML}
                 </div>
             `;
             carGallery.appendChild(card);
-        });
-
-        if (!isDesktop) {
-            carGallery.classList.add('swiper-wrapper');
-            if (inventorySwiper) inventorySwiper.update();
-            else initInventorySwiper();
-        } else {
-            carGallery.classList.remove('swiper-wrapper');
-        }
-    }
-
-    function initInventorySwiper() {
-        if (inventorySwiper) return;
-        inventorySwiper = new Swiper('#car-gallery', {
-            slidesPerView: 'auto',
-            spaceBetween: 16,
-            grabCursor: true,
-            freeMode: true,
         });
     }
     
@@ -186,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
             slide.className = 'swiper-slide';
             slide.style.backgroundImage = `url(${car.image_url})`;
             featuredCarsWrapper.appendChild(slide);
-        });
+});
         new Swiper('.featured-swiper', {
             effect: 'coverflow', grabCursor: true, centeredSlides: true, slidesPerView: 'auto',
             loop: featuredCars.length > 2, autoplay: { delay: 3000, disableOnInteraction: false },
@@ -208,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p><strong>Year:</strong> ${car.year}</p>
                     <p><strong>Status:</strong> ${car.status}</p>
                     <p>${car.description || 'No additional details available.'}</p>
-                    <a href="${generateWhatsAppLink(car, 'details')}" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Contact via WhatsApp</a>
+                    <a href="${generateWhatsAppLink(car)}" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Contact via WhatsApp</a>
                 </div>
             </div>
         `;
@@ -222,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.remove('no-scroll');
     }
 
-    function generateWhatsAppLink(car, context) {
+    function generateWhatsAppLink(car) {
         const message = `Hello, I'm interested in the ${car.name} ${car.model} (${car.year}).`;
         return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
     }
