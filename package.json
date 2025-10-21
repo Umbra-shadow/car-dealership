@@ -1,5 +1,5 @@
 {
-  "name": "car-dealership",
+  "name": "car-dealership-omega-ten",
   "version": "1.0.0",
   "dependencies": {
     "@neondatabase/serverless": "^0.6.0"
