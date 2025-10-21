@@ -6,44 +6,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prestige Motors - The Art of Automotive Excellence</title>
 
-    <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
-    <!-- SwiperJS for Carousel -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-
-    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-    <!-- Loader -->
     <div class="loader" id="loader">
         <div class="loader-icon"></div>
     </div>
 
-    <!-- Header -->
     <header class="header" id="header">
         <nav class="container">
             <a href="#" class="logo">PRESTIGE</a>
+
             <div class="nav-links">
                 <a href="#featured">Featured</a>
                 <a href="#listings">Inventory</a>
                 <a href="#about">About</a>
-                <a href="#contact">Contact</a>
             </div>
-            <button class="hamburger" id="hamburger-button">
-                <i class="fas fa-bars"></i>
-            </button>
+
+            <div class="header-actions">
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="Search by name, model, year...">
+                </div>
+                <button class="search-toggle-btn" id="search-toggle-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="hamburger" id="hamburger-button">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
         </nav>
     </header>
 
-    <!-- Mobile Navigation -->
     <div class="mobile-nav" id="mobile-nav">
         <button class="close-btn" id="close-button">&times;</button>
         <a href="#featured" class="mobile-link">Featured</a>
@@ -53,10 +54,8 @@
     </div>
 
     <main>
-        <!-- Hero Section -->
         <section id="hero" class="hero">
             <div class="hero-video-wrapper">
-                <!-- IMPORTANT: Changed the poster image to a high-impact car photo -->
                 <video playsinline autoplay muted loop
                     poster="https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=2564&auto=format&fit=crop"
                     class="hero-video">
@@ -68,26 +67,21 @@
                 <h1 class="hero-title animate-on-load">Find Your Dream Car</h1>
                 <p class="hero-subtitle animate-on-load">The Ultimate Destination for Luxury & Performance</p>
                 <div class="hero-buttons animate-on-load">
-                    <a href="#listings" class="btn btn-primary">View Cars</a>
-                    <a href="#contact" class="btn btn-secondary">Contact Us</a>
+                    <a href="#listings" class="btn btn-primary">View Inventory</a>
                 </div>
             </div>
         </section>
 
-        <!-- Featured Cars Carousel Section -->
         <section id="featured" class="featured-section">
             <div class="container" data-aos="fade-up">
                 <h2 class="section-title">Featured Collection</h2>
                 <div class="swiper featured-swiper">
-                    <div class="swiper-wrapper" id="featured-cars-wrapper">
-                        <!-- Featured cars will be inserted here by JS -->
-                    </div>
-                    <div class="swiper-pagination"></div>
+                    <div class="swiper-wrapper" id="featured-cars-wrapper"></div>
                 </div>
+                <div class="swiper-pagination"></div>
             </div>
         </section>
 
-        <!-- Car Listings Section -->
         <section id="listings" class="listings-section">
             <div class="container">
                 <h2 class="section-title" data-aos="fade-up">Our Inventory</h2>
@@ -97,7 +91,6 @@
             </div>
         </section>
 
-        <!-- About Section -->
         <section id="about" class="about-section">
             <div class="container about-container">
                 <div class="about-image" data-aos="fade-right">
@@ -108,41 +101,14 @@
                     <p>Founded on a passion for precision engineering, Prestige Motors is a destination for enthusiasts.
                         We specialize in sourcing the most sought-after luxury and performance vehicles from around the
                         globe.</p>
-                    <p>Our mission is to provide a seamless and personalized car-buying experience, ensuring every
-                        client finds their perfect vehicle.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Services/Features Section -->
-        <section id="services" class="services-section">
-            <div class="container">
-                <h2 class="section-title" data-aos="fade-up">Why Choose Us?</h2>
-                <div class="services-grid">
-                    <div class="service-card" data-aos="fade-up" data-aos-delay="100">
-                        <i class="fas fa-globe-americas service-icon"></i>
-                        <h3>Global Sourcing</h3>
-                        <p>We find the exact car you're looking for, anywhere in the world.</p>
-                    </div>
-                    <div class="service-card" data-aos="fade-up" data-aos-delay="200">
-                        <i class="fas fa-certificate service-icon"></i>
-                        <h3>Certified Quality</h3>
-                        <p>Every vehicle undergoes a rigorous inspection to ensure pristine condition.</p>
-                    </div>
-                    <div class="service-card" data-aos="fade-up" data-aos-delay="300">
-                        <i class="fas fa-handshake service-icon"></i>
-                        <h3>Personalized Service</h3>
-                        <p>A bespoke, client-focused experience from first inquiry to final delivery.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
         <section id="contact" class="contact-section">
             <div class="container" data-aos="fade-up">
                 <h2 class="section-title">Begin Your Journey</h2>
-                <p>Your dream car awaits. Contact us today for a private viewing or consultation.</p>
+                <p>Contact us today for a private viewing or consultation.</p>
                 <div class="contact-info">
                     <span><i class="fas fa-envelope"></i> contact@prestigemotors.com</span>
                     <span><i class="fas fa-phone"></i> +1 (234) 567-890</span>
@@ -151,7 +117,6 @@
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container footer-content">
             <p>&copy; 2024 Prestige Motors. All Rights Reserved.</p>
@@ -163,19 +128,14 @@
         </div>
     </footer>
 
-    <!-- Floating WhatsApp Button -->
     <a id="whatsapp-float" href="#" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- Car Details Modal -->
     <div class="modal-overlay" id="modal-overlay">
-        <div class="modal-content" id="modal-content">
-            <!-- Modal content will be injected here by JS -->
-        </div>
+        <div class="modal-content" id="modal-content"></div>
     </div>
 
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="script.js"></script>
