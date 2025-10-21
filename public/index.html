@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prestige Motors - The Art of Automotive Excellence</title>
 
+    <!-- FONT: Quicksand, as requested -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="styles.css">
@@ -24,23 +25,17 @@
     <header class="header" id="header">
         <nav class="container">
             <a href="#" class="logo">PRESTIGE</a>
-
             <div class="nav-links">
                 <a href="#featured">Featured</a>
                 <a href="#listings">Inventory</a>
                 <a href="#about">About</a>
             </div>
-
             <div class="header-actions">
                 <div class="search-container">
-                    <input type="text" id="search-input" placeholder="Search by name, model, year...">
+                    <input type="text" id="search-input" placeholder="Search for your dream car...">
                 </div>
-                <button class="search-toggle-btn" id="search-toggle-btn">
-                    <i class="fas fa-search"></i>
-                </button>
-                <button class="hamburger" id="hamburger-button">
-                    <i class="fas fa-bars"></i>
-                </button>
+                <button class="search-toggle-btn" id="search-toggle-btn"><i class="fas fa-search"></i></button>
+                <button class="hamburger" id="hamburger-button"><i class="fas fa-bars"></i></button>
             </div>
         </nav>
     </header>
@@ -82,20 +77,24 @@
             </div>
         </section>
 
+        <!-- Inventory Section -->
         <section id="listings" class="listings-section">
             <div class="container">
                 <h2 class="section-title" data-aos="fade-up">Our Inventory</h2>
-                <div id="car-gallery" class="car-gallery">
-                    <p class="loading-text">Loading our finest vehicles...</p>
+                <!-- This container will be controlled by JS: Grid on desktop, Swiper on mobile -->
+                <div id="car-inventory-container" class="car-inventory-container">
+                    <div id="car-gallery" class="swiper-wrapper">
+                        <!-- Car cards will be injected here -->
+                    </div>
                 </div>
+                <div id="inventory-swiper-pagination" class="swiper-pagination"></div>
             </div>
         </section>
 
         <section id="about" class="about-section">
             <div class="container about-container">
-                <div class="about-image" data-aos="fade-right">
-                    <img src="/assets/about-us.jpg" alt="Dealership Interior">
-                </div>
+                <div class="about-image" data-aos="fade-right"><img src="/assets/about-us.jpg"
+                        alt="Dealership Interior"></div>
                 <div class="about-content" data-aos="fade-left">
                     <h2 class="section-title">About Prestige Motors</h2>
                     <p>Founded on a passion for precision engineering, Prestige Motors is a destination for enthusiasts.
