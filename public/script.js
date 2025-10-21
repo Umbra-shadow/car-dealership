@@ -1,10 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- CONFIGURATION ---
-    // ######################################################################
-    // ### IMPORTANT: REPLACE THIS WITH YOUR REAL WHATSAPP NUMBER ###
-    // ### Use your country code first, without the '+' sign or any spaces ###
-    // ######################################################################
-    const WHATSAPP_NUMBER = "1234567890"; 
+    const WHATSAPP_NUMBER = "1234567890"; // IMPORTANT: Replace with your real WhatsApp number
 
     // --- ELEMENT SELECTORS ---
     const loader = document.getElementById('loader');
@@ -18,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalOverlay = document.getElementById('modal-overlay');
     const modalContent = document.getElementById('modal-content');
     
-    // --- DATA ---
     let allCars = [];
 
     // --- INITIALIZATION ---
@@ -46,14 +41,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function setupEventListeners() {
-        window.addEventListener('scroll', () => {
-            header.classList.toggle('scrolled', window.scrollY > 50);
-        });
+        window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 50));
 
-        const toggleNav = () => mobileNav.classList.toggle('open');
-        hamburgerButton.addEventListener('click', toggleNav);
-        closeButton.addEventListener('click', toggleNav);
-        document.querySelectorAll('.mobile-link').forEach(link => link.addEventListener('click', toggleNav));
+        const toggleNav = (shouldOpen) => {
+            mobileNav.classList.toggle('open', shouldOpen);
+            document.body.classList.toggle('no-scroll', shouldOpen); // Lock/unlock scroll
+        };
+        hamburgerButton.addEventListener('click', () => toggleNav(true));
+        closeButton.addEventListener('click', () => toggleNav(false));
+        document.querySelectorAll('.mobile-link').forEach(link => link.addEventListener('click', () => toggleNav(false)));
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -69,21 +65,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function setupFloatingWhatsApp() {
         if (!WHATSAPP_NUMBER || WHATSAPP_NUMBER === "1234567890") {
-             console.warn("WhatsApp number is not configured. The floating button will not work correctly.");
-             whatsappFloat.style.display = 'none'; // Hide button if not configured
+             console.warn("WhatsApp number is not configured in script.js. The floating button is hidden.");
+             whatsappFloat.style.display = 'none';
              return;
         }
         const defaultMessage = "Hello! I would like to inquire about your cars.";
         whatsappFloat.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(defaultMessage)}`;
     }
 
-    // --- API & DATA HANDLING ---
     async function fetchAndDisplayCars() {
         try {
             const response = await fetch('/api/get-cars');
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             allCars = await response.json();
-
             populateCarGallery(allCars);
             const featured = allCars.filter(car => car.featured === true || car.featured === 'true');
             populateFeaturedCarousel(featured);
@@ -93,11 +87,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- UI RENDERING ---
     function populateCarGallery(cars) {
         carGallery.innerHTML = '';
         if (cars.length === 0) {
-            carGallery.innerHTML = '<p class="loading-text">No vehicles currently available. Please check back soon.</p>';
+            carGallery.innerHTML = '<p class="loading-text">No vehicles currently available.</p>';
             return;
         }
         cars.forEach(car => {
@@ -133,14 +126,9 @@ document.addEventListener('DOMContentLoaded', () => {
             slide.style.backgroundImage = `url(${car.image_url})`;
             featuredCarsWrapper.appendChild(slide);
         });
-
         new Swiper('.featured-swiper', {
-            effect: 'coverflow',
-            grabCursor: true,
-            centeredSlides: true,
-            slidesPerView: 'auto',
-            loop: featuredCars.length > 2, // Loop is better with more slides
-            autoplay: { delay: 3000, disableOnInteraction: false },
+            effect: 'coverflow', grabCursor: true, centeredSlides: true, slidesPerView: 'auto',
+            loop: featuredCars.length > 2, autoplay: { delay: 3000, disableOnInteraction: false },
             coverflowEffect: { rotate: 50, stretch: 0, depth: 100, modifier: 1, slideShadows: false },
             pagination: { el: '.swiper-pagination' },
         });
@@ -164,11 +152,13 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
         modalOverlay.classList.add('active');
+        document.body.classList.add('no-scroll'); // Lock scroll
         document.getElementById('modal-close-btn').addEventListener('click', closeModal);
     }
     
     function closeModal() {
         modalOverlay.classList.remove('active');
+        document.body.classList.remove('no-scroll'); // Unlock scroll
     }
 
     function generateWhatsAppLink(car) {
