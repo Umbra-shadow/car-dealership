@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- CONFIGURATION ---
     const WHATSAPP_NUMBER = "1234567890"; // Replace with your real WhatsApp number
-    const HOMEPAGE_CAR_LIMIT = 6; // How many cars to show on the homepage
 
     // --- ELEMENT SELECTORS ---
     const loader = document.getElementById('loader');
@@ -10,9 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeButton = document.getElementById('close-button');
     const mobileNav = document.getElementById('mobile-nav');
     const carGallery = document.getElementById('car-gallery');
-    const featuredCarsWrapper = document.getElementById('featured-cars-wrapper');
     const whatsappFloat = document.getElementById('whatsapp-float');
     const modalOverlay = document.getElementById('modal-overlay');
+    const searchInput = document.getElementById('search-input');
     
     let allCars = [];
 
@@ -40,17 +39,15 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         hamburgerButton.addEventListener('click', () => toggleNav(true));
         closeButton.addEventListener('click', () => toggleNav(false));
-        document.querySelectorAll('.mobile-link').forEach(link => {
-            if (link.getAttribute('href').startsWith('#')) {
-                link.addEventListener('click', () => toggleNav(false));
-            }
-        });
+        document.querySelectorAll('.mobile-link').forEach(link => link.addEventListener('click', () => toggleNav(false)));
 
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-            });
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filteredCars = allCars.filter(car => 
+                car.name.toLowerCase().includes(searchTerm) ||
+                car.model.toLowerCase().includes(searchTerm)
+            );
+            populateCarGallery(filteredCars, searchTerm);
         });
 
         modalOverlay.addEventListener('click', (e) => {
@@ -59,18 +56,18 @@ document.addEventListener('DOMContentLoaded', () => {
         
         carGallery.addEventListener('click', (e) => {
             const card = e.target.closest('.car-card');
-            if (e.target.closest('.btn-primary, .btn-inquire')) return;
+            if (e.target.closest('.btn-primary')) return; // Ignore clicks on WhatsApp button
             if (card && card.dataset.id) openModal(card.dataset.id);
         });
     }
 
     function setupFloatingWhatsApp() {
         if (!WHATSAPP_NUMBER || WHATSAPP_NUMBER === "1234567890") {
-             console.warn("WhatsApp number is not configured.");
+             console.warn("WhatsApp number not configured.");
              whatsappFloat.style.display = 'none';
              return;
         }
-        const defaultMessage = "Hello! I would like to inquire about your cars.";
+        const defaultMessage = "Hello! I have a question about your inventory.";
         whatsappFloat.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(defaultMessage)}`;
     }
 
@@ -79,22 +76,21 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch('/api/get-cars');
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             allCars = await response.json();
-            // ### LIMITS CARS ON HOMEPAGE ###
-            populateCarGallery(allCars.slice(0, HOMEPAGE_CAR_LIMIT));
-            const featured = allCars.filter(car => car.featured === true || car.featured === 'true');
-            populateFeaturedCarousel(featured);
+            populateCarGallery(allCars);
         } catch (error) {
             console.error("Failed to fetch cars:", error);
             carGallery.innerHTML = '<p class="error-text">Unable to display inventory. Please try again later.</p>';
         }
     }
 
-    function populateCarGallery(cars) {
+    function populateCarGallery(cars, searchTerm = '') {
         carGallery.innerHTML = '';
         if (cars.length === 0) {
-            carGallery.innerHTML = '<p class="loading-text">No vehicles currently available.</p>';
+            const message = searchTerm ? `No vehicles found matching "${searchTerm}"` : 'No vehicles currently available.';
+            carGallery.innerHTML = `<p class="no-results-text">${message}</p>`;
             return;
         }
+
         cars.forEach(car => {
             const card = document.createElement('div');
             card.className = 'car-card';
@@ -130,22 +126,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
             carGallery.appendChild(card);
-        });
-    }
-    
-    function populateFeaturedCarousel(featuredCars) {
-        featuredCarsWrapper.innerHTML = '';
-        featuredCars.forEach(car => {
-            const slide = document.createElement('div');
-            slide.className = 'swiper-slide';
-            slide.style.backgroundImage = `url(${car.image_url})`;
-            featuredCarsWrapper.appendChild(slide);
-        });
-        new Swiper('.featured-swiper', {
-            effect: 'coverflow', grabCursor: true, centeredSlides: true, slidesPerView: 'auto',
-            loop: featuredCars.length > 2, autoplay: { delay: 3000, disableOnInteraction: false },
-            coverflowEffect: { rotate: 50, stretch: 0, depth: 100, modifier: 1, slideShadows: false },
-            pagination: { el: '.swiper-pagination', clickable: true },
         });
     }
     
