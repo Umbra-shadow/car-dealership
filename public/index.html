@@ -6,23 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prestige Motors - The Art of Automotive Excellence</title>
 
+    <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- SwiperJS for Carousel -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-    <header class="header">
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-icon"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header" id="header">
         <nav class="container">
-            <a href="#hero" class="logo">PRESTIGE</a>
+            <a href="#" class="logo">PRESTIGE</a>
             <div class="nav-links">
-                <a href="#cars">Inventory</a>
-                <a href="#about">About Us</a>
-                <a href="#services">Services</a>
+                <a href="#featured">Featured</a>
+                <a href="#listings">Inventory</a>
+                <a href="#about">About</a>
                 <a href="#contact">Contact</a>
             </div>
             <button class="hamburger" id="hamburger-button">
@@ -31,87 +43,105 @@
         </nav>
     </header>
 
+    <!-- Mobile Navigation -->
     <div class="mobile-nav" id="mobile-nav">
         <button class="close-btn" id="close-button">&times;</button>
-        <a href="#cars" class="mobile-link">Inventory</a>
-        <a href="#about" class="mobile-link">About Us</a>
-        <a href="#services" class="mobile-link">Services</a>
+        <a href="#featured" class="mobile-link">Featured</a>
+        <a href="#listings" class="mobile-link">Inventory</a>
+        <a href="#about" class="mobile-link">About</a>
         <a href="#contact" class="mobile-link">Contact</a>
     </div>
 
     <main>
+        <!-- Hero Section -->
         <section id="hero" class="hero">
             <div class="hero-video-wrapper">
-                <video playsinline autoplay muted loop
-                    poster="https://images.unsplash.com/photo-1517524206127-48bbd363f357?q=80&w=2070&auto=format&fit=crop"
-                    class="hero-video">
-                    <!-- Find free videos on sites like Pexels.com or Coverr.co -->
-                    <source src="https://videos.pexels.com/video-files/3133616/3133616-hd_1920_1080_25fps.mp4"
-                        type="video/mp4">
+                <video playsinline autoplay muted loop poster="/assets/hero-poster.jpg" class="hero-video">
+                    <source src="/assets/hero-video.mp4" type="video/mp4">
+                    <!-- Create a /public/assets folder and add hero-video.mp4 and hero-poster.jpg -->
                 </video>
             </div>
             <div class="hero-overlay"></div>
-            <div class="hero-content animate-on-scroll">
-                <h1 class="hero-title">The Art of Automotive Excellence</h1>
-                <p class="hero-subtitle">Discover our curated collection of the world's finest automobiles.</p>
-                <a href="#cars" class="btn btn-primary">View Collection</a>
+            <div class="hero-content">
+                <h1 class="hero-title animate-on-load">Find Your Dream Car</h1>
+                <p class="hero-subtitle animate-on-load">The Ultimate Destination for Luxury & Performance</p>
+                <div class="hero-buttons animate-on-load">
+                    <a href="#listings" class="btn btn-primary">View Cars</a>
+                    <a href="#contact" class="btn btn-secondary">Contact Us</a>
+                </div>
             </div>
         </section>
 
-        <section id="cars" class="cars-section">
+        <!-- Featured Cars Carousel Section -->
+        <section id="featured" class="featured-section">
+            <div class="container" data-aos="fade-up">
+                <h2 class="section-title">Featured Collection</h2>
+                <div class="swiper featured-swiper">
+                    <div class="swiper-wrapper" id="featured-cars-wrapper">
+                        <!-- Featured cars will be inserted here by JS -->
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Car Listings Section -->
+        <section id="listings" class="listings-section">
             <div class="container">
-                <h2 class="section-title animate-on-scroll">Our Curated Collection</h2>
+                <h2 class="section-title" data-aos="fade-up">Our Inventory</h2>
                 <div id="car-gallery" class="car-gallery">
                     <p class="loading-text">Loading our finest vehicles...</p>
                 </div>
             </div>
         </section>
 
+        <!-- About Section -->
         <section id="about" class="about-section">
             <div class="container about-container">
-                <div class="about-image animate-on-scroll">
-                    <img src="https://images.unsplash.com/photo-1533106418989-88981c693178?q=80&w=1887&auto=format&fit=crop"
-                        alt="Luxury car dealership interior">
+                <div class="about-image" data-aos="fade-right">
+                    <img src="/assets/about-us.jpg" alt="Dealership Interior">
+                    <!-- Add an about-us.jpg to your /public/assets folder -->
                 </div>
-                <div class="about-content animate-on-scroll">
+                <div class="about-content" data-aos="fade-left">
                     <h2 class="section-title">About Prestige Motors</h2>
-                    <p>Founded on a passion for precision engineering and timeless design, Prestige Motors is more than
-                        a dealership—it's a destination for enthusiasts. We specialize in sourcing the most sought-after
-                        luxury and performance vehicles from around the globe.</p>
-                    <p>Our mission is to provide a seamless, transparent, and personalized car-buying experience,
-                        ensuring that every client finds the perfect vehicle to match their lifestyle.</p>
-                    <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                    <p>Founded on a passion for precision engineering, Prestige Motors is a destination for enthusiasts.
+                        We specialize in sourcing the most sought-after luxury and performance vehicles from around the
+                        globe.</p>
+                    <p>Our mission is to provide a seamless and personalized car-buying experience, ensuring every
+                        client finds their perfect vehicle.</p>
                 </div>
             </div>
         </section>
 
+        <!-- Services/Features Section -->
         <section id="services" class="services-section">
             <div class="container">
-                <h2 class="section-title animate-on-scroll">Why Choose Us?</h2>
+                <h2 class="section-title" data-aos="fade-up">Why Choose Us?</h2>
                 <div class="services-grid">
-                    <div class="service-card animate-on-scroll">
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="100">
                         <i class="fas fa-globe-americas service-icon"></i>
                         <h3>Global Sourcing</h3>
-                        <p>We find the exact car you're looking for, no matter where it is in the world.</p>
+                        <p>We find the exact car you're looking for, anywhere in the world.</p>
                     </div>
-                    <div class="service-card animate-on-scroll">
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="200">
                         <i class="fas fa-certificate service-icon"></i>
                         <h3>Certified Quality</h3>
-                        <p>Every vehicle undergoes a rigorous multi-point inspection to ensure pristine condition.</p>
+                        <p>Every vehicle undergoes a rigorous inspection to ensure pristine condition.</p>
                     </div>
-                    <div class="service-card animate-on-scroll">
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="300">
                         <i class="fas fa-handshake service-icon"></i>
                         <h3>Personalized Service</h3>
-                        <p>We offer a bespoke, client-focused experience from your first inquiry to final delivery.</p>
+                        <p>A bespoke, client-focused experience from first inquiry to final delivery.</p>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Contact Section -->
         <section id="contact" class="contact-section">
-            <div class="container animate-on-scroll">
+            <div class="container" data-aos="fade-up">
                 <h2 class="section-title">Begin Your Journey</h2>
-                <p>Your dream car awaits. Contact us today to schedule a private viewing or consultation.</p>
+                <p>Your dream car awaits. Contact us today for a private viewing or consultation.</p>
                 <div class="contact-info">
                     <span><i class="fas fa-envelope"></i> contact@prestigemotors.com</span>
                     <span><i class="fas fa-phone"></i> +1 (234) 567-890</span>
@@ -120,6 +150,7 @@
         </section>
     </main>
 
+    <!-- Footer -->
     <footer class="footer">
         <div class="container footer-content">
             <p>&copy; 2024 Prestige Motors. All Rights Reserved.</p>
@@ -131,10 +162,21 @@
         </div>
     </footer>
 
+    <!-- Floating WhatsApp Button -->
     <a id="whatsapp-float" href="#" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
         <i class="fab fa-whatsapp"></i>
     </a>
 
+    <!-- Car Details Modal -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal-content" id="modal-content">
+            <!-- Modal content will be injected here by JS -->
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="script.js"></script>
 </body>
 

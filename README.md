@@ -1,3 +1,45 @@
+# Prestige Motors - Luxury Car Dealership (React Frontend)
+
+This is a professional, modern, and fully responsive front-end website for a luxury car dealership. It is built with React, Vite, Tailwind CSS, and is heavily animated using Framer Motion and Animate on Scroll (AOS) to provide a premium user experience.
+
+**Value Target:** This project is built to the quality and standard of a ~$250 professional front-end deliverable.
+
+## Live Demo
+*(A live demo would be hosted on Vercel or Netlify after deployment)*
+
+## Features
+
+-   **Stunning Visuals**: Dark luxury theme with gold accents and high-quality imagery.
+-   **Rich Animations**:
+    -   Page load animation.
+    -   Smooth hero section text reveals with Framer Motion.
+    -   Elegant section transitions using Animate on Scroll (AOS).
+    -   Interactive card hover effects (lift & glow).
+    -   Seamless modal pop-up animations for car details.
+-   **Featured Cars Carousel**: An auto-scrolling, interactive slider built with Swiper.js.
+-   **Dynamic Car Listings**: Car data is managed from a central `cars.json` file, making it easy to update the inventory.
+-   **Interactive Car Details Modal**: A pop-up modal to view detailed information about each car without leaving the page.
+-   **Full WhatsApp Integration**:
+    -   A floating "Chat with Us" button for general inquiries.
+    -   A "Contact via WhatsApp" button on each car, pre-filled with that car's specific details (Name, Model, Price).
+-   **Fully Responsive**: Meticulously designed to look and function perfectly on all devices, from mobile phones to widescreen desktops.
+-   **Modern Tech Stack**: Built with React, Vite, and Tailwind CSS for a fast, efficient, and maintainable codebase.
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+-   Node.js (v18.x or newer recommended)
+-   npm or yarn
+
+### 1. Clone the Repository
+
+```bash
+git clone <your-repository-url>
+cd <repository-folder>
+
 Static Car Dealership Website with a Serverless API
 This project is a modern, fast, and secure car dealership website built with HTML, CSS, and JavaScript. It features a "static" frontend that dynamically loads its car inventory from a serverless API, which in turn connects to a Neon PostgreSQL database.
 This architecture is highly scalable, secure, and requires zero server maintenance. The car inventory is managed directly through the Neon database dashboard.
