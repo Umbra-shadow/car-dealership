@@ -7,7 +7,7 @@
     --color-text: #F0F0F0;
     --color-text-muted: #888;
     --font-family: 'Quicksand', sans-serif;
-    /* FONT: Quicksand as requested */
+    /* ### QUICKSAND FONT IMPLEMENTED ### */
     --transition-speed: 0.3s;
 }
 
@@ -27,7 +27,6 @@ body {
     color: var(--color-text);
     line-height: 1.6;
     overflow-x: hidden;
-    font-weight: 500;
 }
 
 body.no-scroll {
@@ -53,7 +52,7 @@ section {
 
 .section-title {
     font-size: clamp(2rem, 5vw, 2.5rem);
-    font-weight: 700;
+    font-weight: 600;
     text-align: center;
     margin-bottom: 3rem;
     color: var(--color-text);
@@ -83,7 +82,7 @@ section {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* --- LOADER & HEADER --- */
+/* --- LOADER --- */
 .loader {
     position: fixed;
     top: 0;
@@ -118,6 +117,7 @@ section {
     pointer-events: none;
 }
 
+/* --- HEADER & NAVIGATION (WITH SEARCH) --- */
 .header {
     position: fixed;
     width: 100%;
@@ -170,9 +170,9 @@ section {
     border-radius: 20px;
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
-    font-family: var(--font-family);
     width: 250px;
     transition: all var(--transition-speed) ease;
+    font-family: var(--font-family);
 }
 
 #search-input::placeholder {
@@ -304,7 +304,7 @@ section {
     font-size: clamp(1rem, 4vw, 1.25rem);
     max-width: 600px;
     margin: 0 auto 2rem;
-    font-weight: 400;
+    font-weight: 500;
 }
 
 .animate-on-load {
@@ -333,8 +333,7 @@ body.loaded .animate-on-load {
 /* --- FEATURED SECTION (Tighter Spacing) --- */
 .featured-section {
     background-color: var(--color-surface);
-    padding-top: 4rem;
-    padding-bottom: 4rem;
+    padding: 4rem 0;
 }
 
 .featured-section .section-title {
@@ -369,42 +368,21 @@ body.loaded .animate-on-load {
     background-color: var(--color-primary);
 }
 
-/* --- INVENTORY SECTION (Horizontal List View on Mobile) --- */
-.car-inventory-container.swiper {
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
+/* #################################################################### */
+/* ### INVENTORY RE-ENGINEERED: HORIZONTAL SWIPER ON MOBILE, GRID ON DESKTOP ### */
+/* #################################################################### */
+#car-gallery-container.is-grid .car-gallery {
+    display: grid;
+}
+
+#car-gallery-container.is-swiper .car-gallery {
     overflow: hidden;
-    list-style: none;
-    padding: 0;
-    z-index: 1;
 }
 
-.car-inventory-container #car-gallery {
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    display: flex;
-    transition-property: transform;
-    box-sizing: content-box;
-}
+/* Let Swiper control it */
 
-.listings-section .swiper-pagination {
-    position: static;
-    margin-top: 2rem;
-}
-
-.listings-section .swiper-pagination-bullet-active {
-    background-color: var(--color-primary);
-}
-
-.car-gallery .swiper-slide {
-    width: 75%;
-    max-width: 280px;
-    flex-shrink: 0;
-    height: 100%;
-    position: relative;
-    transition-property: transform;
+.car-gallery {
+    margin: 0 auto;
 }
 
 .loading-text,
@@ -412,12 +390,11 @@ body.loaded .animate-on-load {
 .no-results-text {
     text-align: center;
     font-size: 1.2rem;
-    grid-column: 1 / -1;
-    color: var(--color-text-muted);
     padding: 4rem 0;
-    width: 100%;
+    color: var(--color-text-muted);
 }
 
+/* Card styles are universal */
 .car-card {
     background-color: var(--color-surface);
     border-radius: 8px;
@@ -428,7 +405,6 @@ body.loaded .animate-on-load {
     flex-direction: column;
     position: relative;
     cursor: pointer;
-    height: 100%;
 }
 
 .car-card:hover {
@@ -467,10 +443,11 @@ body.loaded .animate-on-load {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    text-align: center;
 }
 
 .car-info h3 {
-    font-size: clamp(1rem, 4vw, 1.2rem);
+    font-size: 1.2rem;
     font-weight: 700;
     margin-bottom: 0.1rem;
     color: var(--color-text);
@@ -479,12 +456,12 @@ body.loaded .animate-on-load {
 
 .car-info .year {
     color: var(--color-text-muted);
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     margin-bottom: 0.5rem;
 }
 
 .car-info .price {
-    font-size: clamp(1.2rem, 5vw, 1.5rem);
+    font-size: 1.5rem;
     font-weight: 700;
     color: var(--color-primary);
     margin-bottom: 1rem;
@@ -492,20 +469,17 @@ body.loaded .animate-on-load {
 }
 
 .car-card-buttons {
-    display: flex;
+    display: grid;
+    gap: 0.5rem;
 }
 
-/* CONDITIONAL BUTTONS */
-.btn-inquire {
-    display: block;
-    width: 100%;
-}
-
-.btn-details {
+.car-card .btn-details {
     display: none;
 }
 
-/* --- ABOUT, CONTACT, FOOTER, ETC. --- */
+/* Hidden by default (mobile first) */
+
+/* --- ABOUT, SERVICES, CONTACT, FOOTER (largely unchanged) --- */
 .about-section {
     background-color: var(--color-surface);
 }
@@ -523,6 +497,11 @@ body.loaded .animate-on-load {
 
 .about-content .section-title {
     text-align: center;
+}
+
+.about-content p {
+    color: var(--color-text-muted);
+    margin-bottom: 1.5rem;
 }
 
 .contact-section {
@@ -557,6 +536,7 @@ body.loaded .animate-on-load {
     color: var(--color-primary);
 }
 
+/* --- WHATSAPP & MODAL --- */
 .whatsapp-float {
     position: fixed;
     bottom: 1.5rem;
@@ -658,7 +638,15 @@ body.loaded .animate-on-load {
     margin-bottom: 1.5rem;
 }
 
-/* --- RESPONSIVE MEDIA QUERIES --- */
+.modal-details p {
+    color: var(--color-text-muted);
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+}
+
+/* #################################################################### */
+/* ### RESPONSIVE MEDIA QUERIES (RE-ENGINEERED) ### */
+/* #################################################################### */
 @media (min-width: 768px) {
     .nav-links {
         display: flex;
@@ -669,30 +657,29 @@ body.loaded .animate-on-load {
         display: block;
     }
 
-    .search-toggle-btn,
+    .search-toggle-btn {
+        display: none;
+    }
+
     .hamburger {
         display: none;
     }
 
-    /* Switch to grid on desktop */
-    .car-inventory-container {
-        display: grid;
+    .car-gallery {
         grid-template-columns: repeat(3, 1fr);
         gap: 1.5rem;
     }
 
-    .car-inventory-container #car-gallery {
-        display: contents;
-    }
-
-    /* Make wrapper behave like a grid child */
-    .car-gallery .swiper-slide {
-        width: 100%;
-    }
-
-    /* Reset swiper slide width */
-    #inventory-swiper-pagination {
+    .car-card .btn-inquire {
         display: none;
+    }
+
+    .car-card .btn-details {
+        display: block;
+    }
+
+    .car-card-buttons {
+        grid-template-columns: 1fr 1fr;
     }
 
     .modal-body {
@@ -711,20 +698,10 @@ body.loaded .animate-on-load {
     .footer-content {
         flex-direction: row;
     }
-
-    /* CONDITIONAL BUTTONS */
-    .btn-inquire {
-        display: none;
-    }
-
-    .btn-details {
-        display: block;
-        width: 100%;
-    }
 }
 
 @media (min-width: 1280px) {
-    .car-inventory-container {
+    .car-gallery {
         grid-template-columns: repeat(4, 1fr);
     }
 }

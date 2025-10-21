@@ -6,13 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prestige Motors - The Art of Automotive Excellence</title>
 
-    <!-- FONT: Quicksand, as requested -->
+    <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- ### NEW FONT IMPLEMENTED AS REQUESTED ### -->
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- SwiperJS for Carousel -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -32,7 +36,7 @@
             </div>
             <div class="header-actions">
                 <div class="search-container">
-                    <input type="text" id="search-input" placeholder="Search for your dream car...">
+                    <input type="text" id="search-input" placeholder="Search by name or model...">
                 </div>
                 <button class="search-toggle-btn" id="search-toggle-btn"><i class="fas fa-search"></i></button>
                 <button class="hamburger" id="hamburger-button"><i class="fas fa-bars"></i></button>
@@ -77,17 +81,15 @@
             </div>
         </section>
 
-        <!-- Inventory Section -->
         <section id="listings" class="listings-section">
             <div class="container">
                 <h2 class="section-title" data-aos="fade-up">Our Inventory</h2>
-                <!-- This container will be controlled by JS: Grid on desktop, Swiper on mobile -->
-                <div id="car-inventory-container" class="car-inventory-container">
-                    <div id="car-gallery" class="swiper-wrapper">
-                        <!-- Car cards will be injected here -->
+                <!-- ### THIS STRUCTURE IS NOW A SWIPER ON MOBILE AND A GRID ON DESKTOP ### -->
+                <div id="car-gallery-container">
+                    <div id="car-gallery" class="car-gallery">
+                        <p class="loading-text">Loading our finest vehicles...</p>
                     </div>
                 </div>
-                <div id="inventory-swiper-pagination" class="swiper-pagination"></div>
             </div>
         </section>
 
@@ -127,10 +129,8 @@
         </div>
     </footer>
 
-    <a id="whatsapp-float" href="#" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
+    <a id="whatsapp-float" href="#" class="whatsapp-float" target="_blank" rel="noopener noreferrer"><i
+            class="fab fa-whatsapp"></i></a>
     <div class="modal-overlay" id="modal-overlay">
         <div class="modal-content" id="modal-content"></div>
     </div>
