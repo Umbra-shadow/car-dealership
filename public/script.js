@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             // The '/api/get-cars' URL works because Vercel automatically routes
             // requests from the frontend to the serverless function in the /api folder.
-            const response = await fetch('/api/get-cars');
+            const response = await fetch('https://car-dealership-omega-ten.vercel.app/api/get-cars');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
